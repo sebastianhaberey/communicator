@@ -2,14 +2,16 @@
 
 ## Sprint
 
-* Deploy zum Raspberry PI
+* Raspberry PI OS auf Lite umstellen 
+* Raspberry PI Kiosk-Modus
 * Scan-Trigger durch UI
 * Persistenz (Speicher)
-* Persistenz (DB)
 * Konvertierung nach PDF
-* Manager für lokale Dateien
+* Hochladen zu Nextcloud
 
 ## Backlog
+
+* Persistenz (DB)
 
 ## Verworfen
 
@@ -18,6 +20,7 @@
 * Spike: Nextcloud-Anbindung
 * Initiales Projekt mit Backend & Frontend
 * Scanner-Test mit Raspberry PI
+* Deploy zum Raspberry PI
 
 ## V0.0.0
 
