@@ -1,5 +1,7 @@
 # communicator
 
+Web-based app to scan documents locally and upload them to a Nextcloud account.
+
 ## Package Maintenance
 
 - eslint needs to be @8.22.x because of "this.libOptions.parse is not a function" (see https://stackoverflow.com/a/73510759/8707976)
