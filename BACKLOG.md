@@ -1,8 +1,7 @@
 # Backlog
 
-## Sprint
+## Aktueller Sprint
 
-* Raspberry PI Kiosk-Modus
 * Scan-Trigger durch UI
 * Persistenz (Speicher)
 * Konvertierung nach PDF
@@ -12,8 +11,6 @@
 
 * Persistenz (DB)
 
-## Verworfen
-
 ## Done
 
 * Spike: Nextcloud-Anbindung
@@ -21,6 +18,7 @@
 * Scanner-Test mit Raspberry PI
 * Deploy zum Raspberry PI
 * Raspberry PI OS auf Lite umstellen
+* Raspberry PI Kiosk-Modus
 
 ## V0.0.0
 
