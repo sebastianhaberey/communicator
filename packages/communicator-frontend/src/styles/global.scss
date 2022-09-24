@@ -1,0 +1,18 @@
+@mixin g__font-small {
+  font-size: 0.6rem;
+}
+
+@mixin g__font-medium {
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+@mixin g__font-large {
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+@mixin g__font-very-large {
+  font-size: 1.2rem;
+  font-weight: 400;
+}

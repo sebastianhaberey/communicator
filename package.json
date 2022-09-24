@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "name": "communicator",
+  "scripts": {
+    "deploy": "yarn build; yarn clean; yarn copy;",
+    "clean": "rimraf deploy/backend deploy/frontend",
+    "copy": "yarn copy-backend; yarn copy-frontend; yarn copy-config; yarn copy-scripts; yarn copy-script-configs; yarn copy-locations",
+    "build": "yarn workspaces run build",
+    "copy-backend": "copyfiles --all --up 4 \"packages/communicator-backend/dist/src/**/*\" deploy/backend",
+    "copy-frontend": "copyfiles --all --up 3 \"packages/communicator-frontend/dist/**/*\" deploy/frontend",
+    "copy-config": "copyfiles --soft --up 2 packages/communicator-backend/communicator.config.js deploy",
+    "copy-scripts": "copyfiles --up 1 scripts/backup.sh scripts/run.command deploy",
+    "copy-script-configs": "copyfiles --soft --up 1 scripts/backup.config.sh scripts/run.config.sh deploy",
+    "copy-locations": "copyfiles --up 2 packages/communicator-backend/resources/location/locations.csv deploy"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "rimraf": "^3.0.2"
+  }
+}
