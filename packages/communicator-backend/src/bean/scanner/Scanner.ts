@@ -2,6 +2,8 @@ import { logger } from "../logger/Logger";
 
 const { spawn } = require("child_process");
 
+const FILES_DIRECTORY = "files";
+
 export interface ScanOptions {
   format?: string; // pnm|tiff|png|jpeg|pdf
   mode?: string; // color|cray
@@ -28,7 +30,7 @@ export async function scan(scanOptions: ScanOptions = {}): Promise<number> {
     `--resolution=${options.resolution}`,
     `-x ${options.x}`,
     `-y ${options.y}`,
-    "--output-file=files/image.jpg",
+    `--output-file=${FILES_DIRECTORY}/image.jpg`,
   ]);
   // const runner = spawn("pwd");
 

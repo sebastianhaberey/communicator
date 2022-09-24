@@ -2,10 +2,11 @@
   "private": true,
   "name": "communicator",
   "scripts": {
-    "deploy": "yarn build; yarn clean; yarn copy;",
+    "deploy": "yarn build; yarn clean; yarn create-directories; yarn copy",
     "clean": "rimraf deploy/backend deploy/frontend",
     "copy": "yarn copy-backend; yarn copy-frontend; yarn copy-config",
     "build": "yarn workspaces run build",
+    "create-directories": "make-dir deploy/files",
     "copy-backend": "copyfiles --all --up 4 \"packages/communicator-backend/dist/src/**/*\" deploy/backend",
     "copy-frontend": "copyfiles --all --up 3 \"packages/communicator-frontend/dist/**/*\" deploy/frontend",
     "copy-config": "copyfiles --soft --up 1 scripts/run.config.sh scripts/communicator.config.js scripts/run.sh deploy"
@@ -15,6 +16,7 @@
   ],
   "devDependencies": {
     "copyfiles": "^2.4.1",
+    "make-dir-cli": "^3.0.0",
     "rimraf": "^3.0.2"
   }
 }
