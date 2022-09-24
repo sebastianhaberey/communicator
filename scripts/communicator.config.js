@@ -10,5 +10,4 @@ module.exports = {
       url: "https://nextcloud.foo.com/remote.php/dav/files/username",
     },
   },
-  workDirectory: "./files",
 };
