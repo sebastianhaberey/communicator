@@ -2,7 +2,6 @@
 
 ## Sprint
 
-* Raspberry PI OS auf Lite umstellen 
 * Raspberry PI Kiosk-Modus
 * Scan-Trigger durch UI
 * Persistenz (Speicher)
@@ -21,6 +20,7 @@
 * Initiales Projekt mit Backend & Frontend
 * Scanner-Test mit Raspberry PI
 * Deploy zum Raspberry PI
+* Raspberry PI OS auf Lite umstellen
 
 ## V0.0.0
 
