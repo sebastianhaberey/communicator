@@ -18,6 +18,6 @@ export default class App extends Vue {}
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: lightgray;
+  background: grey;
 }
 </style>

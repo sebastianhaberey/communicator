@@ -1,11 +1,17 @@
 import { Module, Mutation, VuexModule } from "vuex-module-decorators";
 
+export enum State {
+  LOADING = "LOADING",
+  START = "START",
+  ERROR = "ERROR",
+}
+
 @Module({ name: "ApplicationStore", namespaced: true })
 export class ApplicationStore extends VuexModule {
-  drawer = false;
+  currentState: State = State.START;
 
   @Mutation
-  updateDrawer(drawer: boolean): void {
-    this.drawer = drawer;
+  updateCurrentState(queryState: State): void {
+    this.currentState = queryState;
   }
 }

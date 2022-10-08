@@ -7,6 +7,8 @@
     "build": "vue-cli-service build src/Main.ts"
   },
   "dependencies": {
+    "@fontsource/vollkorn": "^4.5.12",
+    "@saeris/vue-spinners": "^1.0.8",
     "axios": "^0.27.2",
     "loglevel": "^1.7.1",
     "vue": "^2.6.12",
@@ -41,7 +43,7 @@
     "vue-cli-plugin-vuetify": "~2.5.5",
     "vue-template-compiler": "^2.7.10",
     "vuetify-loader": "^1.9.2",
-    "webpack": "^5.74.0",
-    "vuex-module-decorators": "^1.2.0"
+    "vuex-module-decorators": "^1.2.0",
+    "webpack": "^5.74.0"
   }
 }

@@ -1,0 +1,68 @@
+POST http://raspberrypi:8080/scanner/scan
+
+Request: 
+
+{
+  "version": "2.21.0",
+  "params": {
+    "deviceId": "genesys:libusb:001:003",
+    "resolution": 75,
+    "top": 0,
+    "left": 0,
+    "width": 216.7,
+    "height": 300,
+    "mode": "Gray",
+    "source": "Flatbed",
+    "brightness": 0,
+    "contrast": 0
+  },
+  "filters": [],
+  "pipeline": "JPG | @:pipeline.high-quality",
+  "batch": "none",
+  "index": 1
+}
+
+Response:
+
+{}
+
+
+GET http://raspberrypi:8080/files
+
+Response:
+
+[
+  {
+    "fullname": "data/output/scan_2022-09-25 15.06.55.jpg",
+    "extension": ".jpg",
+    "lastModified": "2022-09-25T13:06:55.738Z",
+    "size": 165898,
+    "sizeString": "162 KB",
+    "isDirectory": false,
+    "name": "scan_2022-09-25 15.06.55.jpg",
+    "path": "data/output"
+  }
+  {
+    "fullname": "data/output/scan_2022-09-25 14.01.42.pdf",
+    "extension": ".pdf",
+    "lastModified": "2022-09-25T12:01:42.346Z",
+    "size": 793701,
+    "sizeString": "775 KB",
+    "isDirectory": false,
+    "name": "scan_2022-09-25 14.01.42.pdf",
+    "path": "data/output"
+  }
+  {
+    "fullname": "data/output/scan_2022-09-25 13.58.35.pdf",
+    "extension": ".pdf",
+    "lastModified": "2022-09-25T11:58:35.348Z",
+    "size": 1586880,
+    "sizeString": "1550 KB",
+    "isDirectory": false,
+    "name": "scan_2022-09-25 13.58.35.pdf",
+    "path": "data/output"
+  }
+]
+
+
+GET http://raspberrypi:8080/files/scan_2022-09-25%2013.58.35.pdf/thumbnail
