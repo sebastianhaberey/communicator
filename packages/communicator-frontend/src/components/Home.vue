@@ -8,25 +8,23 @@
       </div>
       <div v-if="isStart" :key="'START'" class="h__panel">
         <div class="h__single">
-          <v-btn class="h__button_large cyan darken-3" tile elevation="0">
+          <v-btn class="h__button_large cyan darken-3" tile>
             BERÜHREN ZUM STARTEN
           </v-btn>
         </div>
       </div>
       <div v-if="isChoice" :key="'CHOICE'" class="h__panel">
         <div class="h__triple">
-          <v-btn class="h__button_medium cyan darken-3" tile elevation="0">
+          <v-btn class="h__button_medium cyan darken-3" tile>
             WEITERE<br />SEITE<br />
             SCANNEN
           </v-btn>
-          <v-btn class="h__button_medium lime darken-3" tile elevation="0">
+          <v-btn class="h__button_medium lime darken-3" tile>
             DOKUMENT<br />
             SENDEN<br />
             12 SEITEN
           </v-btn>
-          <v-btn class="h__button_medium pink darken-3" tile elevation="0">
-            ABBRECHEN
-          </v-btn>
+          <v-btn class="h__button_medium pink darken-3" tile> ABBRECHEN </v-btn>
         </div>
       </div>
     </transition>
@@ -85,7 +83,7 @@ export default class Home extends Vue {
   width: 800px;
   height: 480px;
   display: flex;
-  background-color: black;
+  background-color: darkslategray;
 }
 
 .h__centered {
