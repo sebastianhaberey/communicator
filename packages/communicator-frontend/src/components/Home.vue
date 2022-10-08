@@ -1,13 +1,33 @@
 <template>
   <div class="h__root">
     <transition name="h__fade">
-      <div v-if="isLoading" :key="'LOADING'" class="h__panel pb-1">
-        <HashLoader :size="200" color="#FFFFFF" class="h__loader" />
+      <div v-if="isLoading" :key="'LOADING'" class="h__panel">
+        <div class="h__centered">
+          <HashLoader :size="100" color="#FFFFFF" class="h__loader" />
+        </div>
       </div>
       <div v-if="isStart" :key="'START'" class="h__panel">
-        <v-btn class="h__scan-button" block tile elevation="0">
-          BERÜHREN ZUM STARTEN
-        </v-btn>
+        <div class="h__single">
+          <v-btn class="h__button_large cyan darken-3" tile elevation="0">
+            BERÜHREN ZUM STARTEN
+          </v-btn>
+        </div>
+      </div>
+      <div v-if="isChoice" :key="'CHOICE'" class="h__panel">
+        <div class="h__triple">
+          <v-btn class="h__button_medium cyan darken-3" tile elevation="0">
+            WEITERE<br />SEITE<br />
+            SCANNEN
+          </v-btn>
+          <v-btn class="h__button_medium lime darken-3" tile elevation="0">
+            DOKUMENT<br />
+            SENDEN<br />
+            12 SEITEN
+          </v-btn>
+          <v-btn class="h__button_medium pink darken-3" tile elevation="0">
+            ABBRECHEN
+          </v-btn>
+        </div>
       </div>
     </transition>
   </div>
@@ -37,6 +57,10 @@ export default class Home extends Vue {
     return this.state === State.START;
   }
 
+  protected get isChoice(): boolean {
+    return this.state === State.CHOICE;
+  }
+
   protected get isLoading(): boolean {
     return this.state === State.LOADING;
   }
@@ -61,25 +85,52 @@ export default class Home extends Vue {
   width: 800px;
   height: 480px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background-color: black;
 }
 
-.h__scan-button {
-  @include g__font-large;
-
-  align-items: stretch;
-  white-space: normal;
-  color: white;
-  padding: 0 !important;
-  background-color: map-get($cyan, "darken-3") !important;
+.h__centered {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.h__scan-button ::v-deep(.v-btn__content) {
-  flex: auto;
-  line-height: 1 !important;
+.h__single {
+  padding: 5px;
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.h__triple {
+  padding: 5px;
+  flex-grow: 1; // needed to fill container horizontally
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 5px;
+}
+
+.h__button {
+  color: white;
+  //text-shadow: 2px 2px black;
+  white-space: normal; // needed for line break to work
+  display: block; // needed for line break to work
+  padding: 0 !important; // needed to eliminate left / right padding inside button
+  height: unset !important; // needed for button to fill container vertically
+}
+
+.h__button ::v-deep(.v-btn__content) {
+  line-height: 1 !important; // needed for reasonable line spacing
+}
+
+.h__button_large {
+  @extend .h__button;
+  @include g__font-large;
+}
+
+.h__button_medium {
+  @extend .h__button;
+  @include g__font-medium;
 }
 
 .h__fade-enter {

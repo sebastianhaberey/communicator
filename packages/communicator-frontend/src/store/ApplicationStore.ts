@@ -3,6 +3,7 @@ import { Module, Mutation, VuexModule } from "vuex-module-decorators";
 export enum State {
   LOADING = "LOADING",
   START = "START",
+  CHOICE = "CHOICE",
   ERROR = "ERROR",
 }
 

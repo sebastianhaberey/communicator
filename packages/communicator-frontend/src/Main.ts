@@ -8,7 +8,7 @@ import vuetify from "./plugins/Vuetify";
 
 import App from "./App.vue";
 
-import "@fontsource/vollkorn/900.css";
+import "@fontsource/mouse-memoirs";
 
 Vue.config.productionTip = false;
 
