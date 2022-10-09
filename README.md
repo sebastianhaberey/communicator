@@ -15,6 +15,7 @@ instructions are rather brief and incomplete.
 - install Raspberry Pi OS Lite using Raspberry Pi Imager: https://www.raspberrypi.com/software/
 - make changes for Waveshare display: https://www.waveshare.com/wiki/4.3inch_DSI_LCD?Amazon
 - set up Openbox window manager: https://die-antwort.eu/techblog/2017-12-setup-raspberry-pi-for-kiosk-mode/
+- configure Openbox in `/etc/xdg/openbox`
 
 ## Install communicator
 
