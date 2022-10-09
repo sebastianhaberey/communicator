@@ -1,3 +1,4 @@
 #!/bin/zsh
 
-echo "Shutdown simulation"
+echo "[shutdown simulation - not actually shutting down]"
+# sudo shutdown -h now

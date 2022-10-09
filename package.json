@@ -9,7 +9,7 @@
     "create-directories": "make-dir deploy/files",
     "copy-backend": "copyfiles --all --up 4 \"packages/communicator-backend/dist/src/**/*\" deploy/backend",
     "copy-frontend": "copyfiles --all --up 3 \"packages/communicator-frontend/dist/**/*\" deploy/frontend",
-    "copy-config": "copyfiles --soft --up 1 scripts/run.config.sh scripts/communicator.config.js scripts/run.sh deploy"
+    "copy-config": "copyfiles --soft --up 1 scripts/run.config.sh scripts/communicator.config.js scripts/run.sh scripts/shutdown-wrapper.sh deploy"
   },
   "workspaces": [
     "packages/*"
