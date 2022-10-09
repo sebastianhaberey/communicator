@@ -3,7 +3,7 @@
 Minimalistic UI to use a Raspberry Pi with a touchscreen as a control
 unit for an attached scanner.
 
-![screenshot](doc/screenshot.png)
+<img src="https://github.com/sebastianhaberey/communicator/raw/main/doc/screenshot.png" width="200" alt="screenshot">
 
 It uses the awesome [scanservjs](https://github.com/sbs20/scanservjs) project
 and uploads the scanned document to a pre-configured Nextcloud account. It
