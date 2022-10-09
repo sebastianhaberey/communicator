@@ -83,15 +83,15 @@ class Application {
       logger.info("Configuration file: %s", configurationPath);
       const configuration = require(configurationPath);
 
-      logger.info("Initializing WebDAV client");
-      initClient(
-        configuration.webdav.files.url,
-        configuration.webdav.username,
-        configuration.webdav.password,
-      );
-
-      const contents = await getDirectoryContents();
-      logger.info(`Directory contents: ${JSON.stringify(contents)}`);
+      // logger.info("Initializing WebDAV client");
+      // initClient(
+      //   configuration.webdav.files.url,
+      //   configuration.webdav.username,
+      //   configuration.webdav.password,
+      // );
+      //
+      // const contents = await getDirectoryContents();
+      // logger.info(`Directory contents: ${JSON.stringify(contents)}`);
 
       this.server = await createKoa(configuration.server);
 

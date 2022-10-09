@@ -2,14 +2,16 @@ import { Module, Mutation, VuexModule } from "vuex-module-decorators";
 
 export enum State {
   LOADING = "LOADING",
+  SPLASH = "SPLASH",
   START = "START",
-  CHOICE = "CHOICE",
+  CONTINUE = "CONTINUE",
+  SUCCESS = "SUCCESS",
   ERROR = "ERROR",
 }
 
 @Module({ name: "ApplicationStore", namespaced: true })
 export class ApplicationStore extends VuexModule {
-  currentState: State = State.START;
+  currentState: State = State.SPLASH;
 
   @Mutation
   updateCurrentState(queryState: State): void {

@@ -1,11 +1,11 @@
 import Koa from "koa";
 import Router from "koa-router";
-import { scan } from "../bean/scanner/Scanner";
+import { shutdown } from "../bean/system/System";
 
 const router = new Router({ prefix: "/api" });
 
-router.get("/scan", async (ctx: Koa.Context) => {
-  const code = await scan({ resolution: 75 });
+router.get("/shutdown", async (ctx: Koa.Context) => {
+  const code = await shutdown();
   if (code === 0) {
     ctx.status = 200;
   } else {
