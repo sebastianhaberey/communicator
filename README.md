@@ -3,20 +3,20 @@
 Minimalistic UI to use a Raspberry Pi with a touchscreen as a control
 unit for an attached scanner.
 
-![screenshot](doc/screenshot.png)
+![screenshot](doc/screenshot.png | width=250)
 
 It uses the awesome [scanservjs](https://github.com/sbs20/scanservjs) project
 and uploads the scanned document to a pre-configured Nextcloud account. It
 is probably not very useful for anyone but me, which is why the following
 instructions are rather brief and incomplete.
 
-## set up Raspbian Lite
+## Set up Raspbian Lite
 
 - install Raspberry Pi OS Lite using Raspberry Pi Imager: https://www.raspberrypi.com/software/
 - make changes for Waveshare display: https://www.waveshare.com/wiki/4.3inch_DSI_LCD?Amazon
 - set up Openbox window manager: https://die-antwort.eu/techblog/2017-12-setup-raspberry-pi-for-kiosk-mode/
 
-## install communicator
+## Install communicator
 
 1. create user communicator: `sudo useradd -m -g users communicator`
 2. optional: for shutdown functionality: add user to no-password sudoers:
@@ -35,14 +35,14 @@ instructions are rather brief and incomplete.
 14. copy systemd service configuration `cp scripts/communicator.service /etc/systemd/system`
 15. enable service: `sudo systemctl enable communicator`
 
-## install scanservjs
+## Install scanservjs
 
 1. create user scanservjs, install n and Node.js 12.22.12 (all like above)
 2. remove `nodejs` and `npm` lines from `apt-get install` command in
    [installer script](https://raw.githubusercontent.com/sbs20/scanservjs/master/packages/server/installer.sh),
    run the script
 
-## various commands
+## Various commands
 
 - start systemd service: `sudo systemctl start communicator`
 - enable service autostart: `sudo systemctl enable communicator`
