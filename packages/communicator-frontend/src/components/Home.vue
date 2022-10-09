@@ -8,19 +8,30 @@
       </div>
       <div v-if="state === 'SPLASH'" :key="'SPLASH'" class="h__panel">
         <div class="h__single">
-          <v-btn class="h__button_large blue darken-3" tile @click="start()">
+          <v-btn
+            class="h__button_large blue darken-3"
+            tile
+            depressed
+            @click="start()"
+          >
             QUICKSCANNER V1.0
           </v-btn>
         </div>
       </div>
       <div v-if="state === 'START'" :key="'START'" class="h__panel">
         <div class="h__double">
-          <v-btn class="h__button_medium cyan darken-3" tile @click="scan()">
+          <v-btn
+            class="h__button_medium cyan darken-3"
+            tile
+            depressed
+            @click="scan()"
+          >
             SCANNEN
           </v-btn>
           <v-btn
             class="h__button_medium pink darken-3"
             tile
+            depressed
             @click="shutdown()"
           >
             HERUNTERFAHREN
@@ -29,24 +40,44 @@
       </div>
       <div v-if="state === 'CONTINUE'" :key="'CONTINUE'" class="h__panel">
         <div class="h__triple">
-          <v-btn class="h__button_medium cyan darken-3" tile @click="scan()">
+          <v-btn
+            class="h__button_medium cyan darken-3"
+            tile
+            depressed
+            @click="scan()"
+          >
             NÄCHSTE<br />
             SEITE<br />
             SCANNEN
           </v-btn>
-          <v-btn class="h__button_medium lime darken-3" tile @click="send()">
+          <v-btn
+            class="h__button_medium lime darken-3"
+            tile
+            depressed
+            @click="send()"
+          >
             DOKUMENT<br />
             SENDEN<br />
             12 SEITEN
           </v-btn>
-          <v-btn class="h__button_medium pink darken-3" tile @click="cancel()">
+          <v-btn
+            class="h__button_medium pink darken-3"
+            tile
+            depressed
+            @click="cancel()"
+          >
             ABBRECHEN
           </v-btn>
         </div>
       </div>
       <div v-if="state === 'SUCCESS'" :key="'SUCCESS'" class="h__panel">
         <div class="h__single">
-          <v-btn class="h__button_large green darken-3" tile @click="splash()">
+          <v-btn
+            class="h__button_large green darken-3"
+            tile
+            depressed
+            @click="splash()"
+          >
             SENDEN ERFOLGREICH!
           </v-btn>
         </div>
@@ -127,7 +158,7 @@ export default class Home extends Vue {
   width: 800px;
   height: 480px;
   display: flex;
-  background-color: darkslategray;
+  background-color: black;
 }
 
 .h__centered {
@@ -163,7 +194,6 @@ export default class Home extends Vue {
 
 .h__button {
   color: white;
-  //text-shadow: 2px 2px black;
   white-space: normal; // needed for line break to work
   display: block; // needed for line break to work
   padding: 0 !important; // needed to eliminate left / right padding inside button
