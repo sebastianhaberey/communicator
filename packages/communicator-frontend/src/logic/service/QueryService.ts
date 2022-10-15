@@ -1,7 +1,11 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { v4 } from "uuid";
 import { getReasonPhrase } from "http-status-codes";
 import log from "loglevel";
+
+function shortenUuid(id: string): string {
+  return id.substr(0, 8);
+}
 
 export class QueryError extends Error {
   constructor(error: AxiosError) {
@@ -10,49 +14,21 @@ export class QueryError extends Error {
   }
 }
 
-export async function get<T>(url: string, params?: any): Promise<T> {
-  const queryId = v4();
+export async function query<T>(config: AxiosRequestConfig): Promise<T> {
+  const queryId = shortenUuid(v4());
 
-  log.debug(`${queryId} query: GET ${url}`);
+  log.debug(`${queryId} ${config.method} ${config.url}`);
 
-  return axios({
-    method: "get",
-    url,
-    params,
-  }).then(
-    (response) => handleResponse(response, queryId),
-    (error) => handleError(error),
-  );
-}
-
-export async function post<T>(
-  url: string,
-  data?: any,
-  params?: any,
-): Promise<T> {
-  const queryId = v4();
-
-  log.debug(`${queryId} query: POST ${url}`);
-
-  return axios({
-    method: "post",
-    url,
-    data,
-    params,
-  }).then(
+  return axios(config).then(
     (response) => handleResponse(response, queryId),
     (error) => handleError(error),
   );
 }
 
 function handleResponse<T>(response: AxiosResponse<T>, queryId: string): T {
-  const data = response.data;
   const status = response.status;
   const reason = getReasonPhrase(status);
-  const message = Array.isArray(data)
-    ? `${queryId} response: ${reason} ${status} (${data.length} elements)`
-    : `${queryId} response: ${reason} ${status}`;
-  log.debug(message);
+  log.debug(`${queryId} ${reason} ${status}`);
   return response.data;
 }
 

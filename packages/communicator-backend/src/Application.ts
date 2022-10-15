@@ -11,7 +11,7 @@ import {
 import yargs from "yargs";
 import { getArguments, renderArgs } from "./function/MiscFunctions";
 import { getWorkingDirectory, resolvePath } from "./function/SystemFunctions";
-// import { getDirectoryContents, initClient } from "./bean/nextcloud/Nextcloud";
+import { initClient } from "./bean/nextcloud/Nextcloud";
 
 const cors = require("@koa/cors");
 const bodyParser = require("koa-bodyparser");
@@ -80,24 +80,20 @@ class Application {
     try {
       initLogger("server", this.args["loglevel"]);
       logger.info("Started with arguments: %s", renderArgs(process.argv));
-
       logger.info("Working directory: %s", getWorkingDirectory());
-
       logger.info("Configuration file: %s", configurationPath);
+
       logger.info(
         "scanservjs base URL: %s",
         configuration?.scanservjs?.baseUrl,
       );
 
-      // logger.info("Initializing WebDAV client");
-      // initClient(
-      //   configuration.webdav.files.url,
-      //   configuration.webdav.username,
-      //   configuration.webdav.password,
-      // );
-      //
-      // const contents = await getDirectoryContents();
-      // logger.info(`Directory contents: ${JSON.stringify(contents)}`);
+      logger.info("Initializing WebDAV client");
+      initClient(
+        configuration.webdav.files.url,
+        configuration.webdav.username,
+        configuration.webdav.password,
+      );
 
       this.server = await createKoa(configuration.server);
 

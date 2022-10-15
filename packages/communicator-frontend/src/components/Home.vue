@@ -1,7 +1,7 @@
 <template>
   <div class="h__root">
     <transition name="h__fade">
-      <div v-if="state === 'BUSY'" :key="'LOADING'" class="h__panel">
+      <div v-if="state === 'BUSY'" :key="'BUSY'" class="h__panel">
         <div class="h__centered">
           <HashLoader :size="100" color="#FFFFFF" class="h__loader" />
         </div>
@@ -71,6 +71,18 @@
           </v-btn>
         </div>
       </div>
+      <div v-if="state === 'ERROR'" :key="'ERROR'" class="h__panel">
+        <div class="h__single">
+          <v-btn
+            class="h__button_large red darken-3"
+            tile
+            depressed
+            @click="start()"
+          >
+            FEHLER
+          </v-btn>
+        </div>
+      </div>
     </transition>
   </div>
 </template>
@@ -78,8 +90,12 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { HashLoader } from "@saeris/vue-spinners";
-import { post } from "@/logic/service/QueryService";
-import { SCAN_URL, SHUTDOWN_URL } from "@/logic/function/UrlFunctions";
+import { query } from "@/logic/service/QueryService";
+
+const BACKEND_URL = "/api";
+const SHUTDOWN_URL = BACKEND_URL + "/shutdown";
+const SCAN_URL = BACKEND_URL + "/scan";
+const SEND_URL = BACKEND_URL + "/send";
 
 export enum State {
   BUSY = "BUSY",
@@ -87,14 +103,6 @@ export enum State {
   CONTINUE = "CONTINUE",
   SUCCESS = "SUCCESS",
   ERROR = "ERROR",
-}
-
-function wait(timeout = 3000): Promise<void> {
-  return new Promise<void>((resolve) =>
-    setTimeout(() => {
-      resolve();
-    }, timeout),
-  );
 }
 
 @Component({
@@ -117,26 +125,38 @@ export default class Home extends Vue {
   protected async scanFirstPage(): Promise<void> {
     this.state = State.BUSY;
     this.page = 1;
-    await Home.scan(this.page);
-    this.state = State.CONTINUE;
+    try {
+      await Home.scan(this.page);
+      this.state = State.CONTINUE;
+    } catch (e) {
+      this.state = State.ERROR;
+    }
   }
 
   protected async scanNextPage(): Promise<void> {
     this.state = State.BUSY;
     this.page += 1;
-    await Home.scan(this.page);
-    this.state = State.CONTINUE;
+    try {
+      await Home.scan(this.page);
+      this.state = State.CONTINUE;
+    } catch (e) {
+      this.state = State.ERROR;
+    }
   }
 
   protected async shutdown(): Promise<void> {
-    await post<void>(SHUTDOWN_URL);
+    await query<void>({ method: "post", url: SHUTDOWN_URL });
   }
 
   protected async wrapUpAndSend(): Promise<void> {
     this.state = State.BUSY;
-    await Home.wrapUpScanning();
-    // TODO trigger sending endpoint
-    this.state = State.SUCCESS;
+    try {
+      await Home.finalizeScan();
+      await Home.send();
+      this.state = State.SUCCESS;
+    } catch (e) {
+      this.state = State.ERROR;
+    }
   }
 
   protected cancel(): void {
@@ -144,13 +164,23 @@ export default class Home extends Vue {
   }
 
   private static async scan(page: number): Promise<void> {
-    await post<void>(SCAN_URL, undefined, { index: page });
-    // return wait(3000);
+    return query<void>({
+      method: "post",
+      url: SCAN_URL,
+      params: { index: page },
+    });
   }
 
-  private static async wrapUpScanning(): Promise<void> {
-    await post<void>(SCAN_URL, undefined, { index: -1 });
-    // return wait(3000);
+  private static async finalizeScan(): Promise<void> {
+    return query<void>({
+      method: "post",
+      url: SCAN_URL,
+      params: { index: -1 },
+    });
+  }
+
+  private static async send(): Promise<void> {
+    return query<void>({ method: "post", url: SEND_URL });
   }
 }
 </script>
