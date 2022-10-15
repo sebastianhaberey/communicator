@@ -46,8 +46,7 @@
             @click="wrapUpAndSend()"
           >
             DOKUMENT<br />
-            SENDEN<br />
-            12 SEITEN
+            SENDEN
           </v-btn>
           <v-btn
             class="h__button_medium pink darken-3"
