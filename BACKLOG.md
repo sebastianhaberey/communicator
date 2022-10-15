@@ -2,8 +2,7 @@
 
 ## Aktueller Sprint
 
-* scanserv an die UI anbinden
-* Datei hochladen zu Nextcloud
+* Screensaver ausschalten
 
 ## Backlog
 
@@ -11,6 +10,9 @@
 
 ## Done
 
+* Doppeltes Drücken verhindern
+* Datei hochladen zu Nextcloud
+* scanserv an die UI anbinden
 * UI-Mockup zum Testen der Bedienbarkeit und des Touchscreens
 * Anwendung beim Hochfahren automatisch starten
 * Spike: Nextcloud-Anbindung

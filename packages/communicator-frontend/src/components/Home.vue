@@ -9,6 +9,7 @@
       <div v-if="state === 'START'" :key="'START'" class="h__panel">
         <div class="h__double_three_to_one">
           <v-btn
+            :class="disabledClass"
             class="h__button_medium cyan darken-3"
             tile
             depressed
@@ -17,6 +18,7 @@
             SCANNEN
           </v-btn>
           <v-btn
+            :class="disabledClass"
             class="h__button_medium pink darken-3"
             tile
             depressed
@@ -30,6 +32,7 @@
       <div v-if="state === 'CONTINUE'" :key="'CONTINUE'" class="h__panel">
         <div class="h__triple">
           <v-btn
+            :class="disabledClass"
             class="h__button_medium cyan darken-3"
             tile
             depressed
@@ -40,6 +43,7 @@
             SCANNEN
           </v-btn>
           <v-btn
+            :class="disabledClass"
             class="h__button_medium lime darken-3"
             tile
             depressed
@@ -50,6 +54,7 @@
             {{ pageString() }}
           </v-btn>
           <v-btn
+            :class="disabledClass"
             class="h__button_medium pink darken-3"
             tile
             depressed
@@ -62,6 +67,7 @@
       <div v-if="state === 'SUCCESS'" :key="'SUCCESS'" class="h__panel">
         <div class="h__single">
           <v-btn
+            :class="disabledClass"
             class="h__button_large green darken-3"
             tile
             depressed
@@ -74,6 +80,7 @@
       <div v-if="state === 'ERROR'" :key="'ERROR'" class="h__panel">
         <div class="h__single">
           <v-btn
+            :class="disabledClass"
             class="h__button_large red darken-3"
             tile
             depressed
@@ -96,6 +103,7 @@ const BACKEND_URL = "/api";
 const SHUTDOWN_URL = BACKEND_URL + "/shutdown";
 const SCAN_URL = BACKEND_URL + "/scan";
 const SEND_URL = BACKEND_URL + "/send";
+const BUTTON_DISABLE_PERIOD = 1000;
 
 export enum State {
   BUSY = "BUSY",
@@ -113,8 +121,10 @@ export enum State {
 export default class Home extends Vue {
   state: State = State.START;
   page: number;
+  buttonsDisabled = false;
 
   start(): void {
+    this.protectButtons();
     this.state = State.START;
   }
 
@@ -123,6 +133,7 @@ export default class Home extends Vue {
   }
 
   protected async scanFirstPage(): Promise<void> {
+    this.protectButtons();
     this.state = State.BUSY;
     this.page = 1;
     try {
@@ -134,6 +145,7 @@ export default class Home extends Vue {
   }
 
   protected async scanNextPage(): Promise<void> {
+    this.protectButtons();
     this.state = State.BUSY;
     this.page += 1;
     try {
@@ -145,10 +157,12 @@ export default class Home extends Vue {
   }
 
   protected async shutdown(): Promise<void> {
-    await query<void>({ method: "post", url: SHUTDOWN_URL });
+    this.protectButtons();
+    await Home.triggerShutdown();
   }
 
   protected async wrapUpAndSend(): Promise<void> {
+    this.protectButtons();
     this.state = State.BUSY;
     try {
       await Home.finalizeScan();
@@ -160,6 +174,7 @@ export default class Home extends Vue {
   }
 
   protected cancel(): void {
+    this.protectButtons();
     this.state = State.START;
   }
 
@@ -181,6 +196,23 @@ export default class Home extends Vue {
 
   private static async send(): Promise<void> {
     return query<void>({ method: "post", url: SEND_URL });
+  }
+
+  private static triggerShutdown(): Promise<void> {
+    return query<void>({ method: "post", url: SHUTDOWN_URL });
+  }
+
+  protected protectButtons(): void {
+    this.buttonsDisabled = true;
+    setTimeout(() => {
+      this.buttonsDisabled = false;
+    }, BUTTON_DISABLE_PERIOD);
+  }
+
+  protected get disabledClass(): Record<string, unknown> {
+    return {
+      h__disabled: this.buttonsDisabled,
+    };
   }
 }
 </script>
@@ -244,6 +276,10 @@ export default class Home extends Vue {
   display: block; // needed for line break to work
   padding: 0 !important; // needed to eliminate left / right padding inside button
   height: unset !important; // needed for button to fill container vertically
+}
+
+.h__disabled {
+  pointer-events: none;
 }
 
 .h__button ::v-deep(.v-btn__content) {
