@@ -2,7 +2,7 @@
   <div class="h__root">
     <transition name="h__fade">
       <div v-if="state === 'BUSY'" :key="'LOADING'" class="h__panel">
-        <div class="h__centered blue-grey darken-3">
+        <div class="h__centered">
           <HashLoader :size="100" color="#FFFFFF" class="h__loader" />
         </div>
       </div>
