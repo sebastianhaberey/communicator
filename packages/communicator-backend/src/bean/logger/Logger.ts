@@ -1,4 +1,5 @@
 import * as winston from "winston";
+import { format } from "date-fns";
 
 const LOGFILE_FORMAT = winston.format.printf(
   ({ level, message, timestamp }) => {
@@ -8,13 +9,17 @@ const LOGFILE_FORMAT = winston.format.printf(
 
 export let logger: winston.Logger;
 
+const timezoned = () => {
+  return format(new Date(), "yyyy-MM-dd HH:mm:ss.SSS (z)");
+};
+
 export function initLogger(filename: string, level = "info"): void {
   logger = winston.createLogger({
     level,
     transports: [
       new winston.transports.File({
         format: winston.format.combine(
-          winston.format.timestamp(),
+          winston.format.timestamp({ format: timezoned }),
           winston.format.splat(),
           LOGFILE_FORMAT,
         ),
