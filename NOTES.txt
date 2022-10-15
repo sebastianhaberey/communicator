@@ -2,3 +2,4 @@ Package Maintenance
 
 - eslint needs to be @8.22.x because of "this.libOptions.parse is not a function" (see https://stackoverflow.com/a/73510759/8707976)
 - lsass needs to be @1.32.x because of "Using / for division is deprecated and will be removed in Dart Sass 2.0.0" (see https://github.com/vuetifyjs/vuetify/issues/13694#issuecomment-846101335)
+- @saeris/vue-spinners@1.0.8" has unmet peer dependency -> will not be fixed, see https://github.com/Saeris/vue-spinners/issues/16
