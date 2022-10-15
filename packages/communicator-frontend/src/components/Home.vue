@@ -46,7 +46,8 @@
             @click="wrapUpAndSend()"
           >
             DOKUMENT<br />
-            SENDEN
+            SENDEN<br />
+            {{ pageString() }}
           </v-btn>
           <v-btn
             class="h__button_medium pink darken-3"
@@ -54,7 +55,7 @@
             depressed
             @click="cancel()"
           >
-            ABBRECHEN
+            VERWERFEN
           </v-btn>
         </div>
       </div>
@@ -99,6 +100,10 @@ export default class Home extends Vue {
 
   start(): void {
     this.state = State.START;
+  }
+
+  protected pageString(): string {
+    return this.page > 1 ? `${this.page} SEITEN` : `${this.page} SEITE`;
   }
 
   protected async scanFirstPage(): Promise<void> {
