@@ -6,20 +6,8 @@
           <HashLoader :size="100" color="#FFFFFF" class="h__loader" />
         </div>
       </div>
-      <div v-if="state === 'SPLASH'" :key="'SPLASH'" class="h__panel">
-        <div class="h__single">
-          <v-btn
-            class="h__button_large blue darken-3"
-            tile
-            depressed
-            @click="start()"
-          >
-            QUICKSCANNER V1.0
-          </v-btn>
-        </div>
-      </div>
       <div v-if="state === 'START'" :key="'START'" class="h__panel">
-        <div class="h__double">
+        <div class="h__double_three_to_one">
           <v-btn
             class="h__button_medium cyan darken-3"
             tile
@@ -34,7 +22,8 @@
             depressed
             @click="shutdown()"
           >
-            HERUNTERFAHREN
+            RUNTER<br />
+            FAHREN
           </v-btn>
         </div>
       </div>
@@ -76,7 +65,7 @@
             class="h__button_large green darken-3"
             tile
             depressed
-            @click="splash()"
+            @click="start()"
           >
             SENDEN ERFOLGREICH!
           </v-btn>
@@ -94,7 +83,6 @@ import { SCAN_URL, SHUTDOWN_URL } from "@/logic/function/UrlFunctions";
 
 export enum State {
   LOADING = "LOADING",
-  SPLASH = "SPLASH",
   START = "START",
   CONTINUE = "CONTINUE",
   SUCCESS = "SUCCESS",
@@ -107,7 +95,7 @@ export enum State {
   },
 })
 export default class Home extends Vue {
-  state: State = State.SPLASH;
+  state: State = State.START;
   page: number;
 
   start(): void {
@@ -140,11 +128,7 @@ export default class Home extends Vue {
   }
 
   protected cancel(): void {
-    this.state = State.SPLASH;
-  }
-
-  protected splash(): void {
-    this.state = State.SPLASH;
+    this.state = State.START;
   }
 
   private static async scan(page: number): Promise<void> {
@@ -194,6 +178,14 @@ export default class Home extends Vue {
   flex-grow: 1; // needed to fill container horizontally
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  column-gap: 5px;
+}
+
+.h__double_three_to_one {
+  padding: 5px;
+  flex-grow: 1; // needed to fill container horizontally
+  display: grid;
+  grid-template-columns: 3fr 1fr;
   column-gap: 5px;
 }
 
