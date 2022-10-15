@@ -1,8 +1,8 @@
 <template>
   <div class="h__root">
     <transition name="h__fade">
-      <div v-if="state === 'LOADING'" :key="'LOADING'" class="h__panel">
-        <div class="h__centered">
+      <div v-if="state === 'BUSY'" :key="'LOADING'" class="h__panel">
+        <div class="h__centered blue-grey darken-3">
           <HashLoader :size="100" color="#FFFFFF" class="h__loader" />
         </div>
       </div>
@@ -82,11 +82,19 @@ import { post } from "@/logic/service/QueryService";
 import { SCAN_URL, SHUTDOWN_URL } from "@/logic/function/UrlFunctions";
 
 export enum State {
-  LOADING = "LOADING",
+  BUSY = "BUSY",
   START = "START",
   CONTINUE = "CONTINUE",
   SUCCESS = "SUCCESS",
   ERROR = "ERROR",
+}
+
+function wait(timeout = 3000): Promise<void> {
+  return new Promise<void>((resolve) =>
+    setTimeout(() => {
+      resolve();
+    }, timeout),
+  );
 }
 
 @Component({
@@ -107,14 +115,14 @@ export default class Home extends Vue {
   }
 
   protected async scanFirstPage(): Promise<void> {
-    this.state = State.LOADING;
+    this.state = State.BUSY;
     this.page = 1;
     await Home.scan(this.page);
     this.state = State.CONTINUE;
   }
 
   protected async scanNextPage(): Promise<void> {
-    this.state = State.LOADING;
+    this.state = State.BUSY;
     this.page += 1;
     await Home.scan(this.page);
     this.state = State.CONTINUE;
@@ -125,7 +133,7 @@ export default class Home extends Vue {
   }
 
   protected async wrapUpAndSend(): Promise<void> {
-    this.state = State.LOADING;
+    this.state = State.BUSY;
     await Home.wrapUpScanning();
     // TODO trigger sending endpoint
     this.state = State.SUCCESS;
@@ -137,10 +145,12 @@ export default class Home extends Vue {
 
   private static async scan(page: number): Promise<void> {
     await post<void>(SCAN_URL, undefined, { index: page });
+    // return wait(3000);
   }
 
   private static async wrapUpScanning(): Promise<void> {
     await post<void>(SCAN_URL, undefined, { index: -1 });
+    // return wait(3000);
   }
 }
 </script>
@@ -160,6 +170,7 @@ export default class Home extends Vue {
   height: 480px;
   display: flex;
   background-color: black;
+  padding: 5px;
 }
 
 .h__centered {
@@ -170,7 +181,6 @@ export default class Home extends Vue {
 }
 
 .h__single {
-  padding: 5px;
   flex-grow: 1;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -178,7 +188,6 @@ export default class Home extends Vue {
 }
 
 .h__double {
-  padding: 5px;
   flex-grow: 1; // needed to fill container horizontally
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -186,7 +195,6 @@ export default class Home extends Vue {
 }
 
 .h__double_three_to_one {
-  padding: 5px;
   flex-grow: 1; // needed to fill container horizontally
   display: grid;
   grid-template-columns: 3fr 1fr;
@@ -194,7 +202,6 @@ export default class Home extends Vue {
 }
 
 .h__triple {
-  padding: 5px;
   flex-grow: 1; // needed to fill container horizontally
   display: grid;
   grid-template-columns: repeat(3, 1fr);
