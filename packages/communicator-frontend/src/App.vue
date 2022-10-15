@@ -1,15 +1,20 @@
 <template>
   <v-app>
     <v-main>
-      <router-view name="home"></router-view>
+      <home />
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import Home from "@/components/Home.vue";
 
-@Component
+@Component({
+  components: {
+    Home,
+  },
+})
 export default class App extends Vue {}
 </script>
 

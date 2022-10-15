@@ -16,9 +16,7 @@
     "vue": "^2.6.12",
     "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^9.1.2",
-    "vue-router": "^3.5.1",
-    "vuetify": "^2.6.9",
-    "vuex": "^3.6.2"
+    "vuetify": "^2.6.9"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",
@@ -46,7 +44,6 @@
     "vue-cli-plugin-vuetify": "~2.5.5",
     "vue-template-compiler": "^2.7.10",
     "vuetify-loader": "^1.9.2",
-    "vuex-module-decorators": "^1.2.0",
     "webpack": "^5.74.0"
   }
 }

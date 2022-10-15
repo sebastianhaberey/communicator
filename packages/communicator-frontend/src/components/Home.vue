@@ -89,10 +89,17 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { HashLoader } from "@saeris/vue-spinners";
-import { ApplicationStore, State } from "@/store/ApplicationStore";
-import { getModule } from "vuex-module-decorators";
 import { get } from "@/logic/service/QueryService";
 import { COMMUNICATOR_BACKEND_SHUTDOWN_URL } from "@/logic/function/UrlFunctions";
+
+export enum State {
+  LOADING = "LOADING",
+  SPLASH = "SPLASH",
+  START = "START",
+  CONTINUE = "CONTINUE",
+  SUCCESS = "SUCCESS",
+  ERROR = "ERROR",
+}
 
 @Component({
   components: {
@@ -100,19 +107,9 @@ import { COMMUNICATOR_BACKEND_SHUTDOWN_URL } from "@/logic/function/UrlFunctions
   },
 })
 export default class Home extends Vue {
-  private get applicationStore(): ApplicationStore {
-    return getModule(ApplicationStore, this.$store);
-  }
+  state: State = State.SPLASH;
 
-  protected get state(): State {
-    return this.applicationStore.currentState;
-  }
-
-  protected set state(state: State) {
-    this.applicationStore.updateCurrentState(state);
-  }
-
-  protected start(): void {
+  start(): void {
     this.state = State.START;
   }
 
