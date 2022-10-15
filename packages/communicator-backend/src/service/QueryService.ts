@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { v4 } from "uuid";
 import { getReasonPhrase } from "http-status-codes";
-import log from "loglevel";
+import { logger } from "../bean/logger/Logger";
 
 export class QueryError extends Error {
   constructor(error: AxiosError) {
@@ -13,7 +13,7 @@ export class QueryError extends Error {
 export async function get<T>(url: string, params?: any): Promise<T> {
   const queryId = v4();
 
-  log.debug(`${queryId} query: GET ${url}`);
+  logger.debug(`${queryId} query: GET ${url}`);
 
   return axios({
     method: "get",
@@ -32,7 +32,7 @@ export async function post<T>(
 ): Promise<T> {
   const queryId = v4();
 
-  log.debug(`${queryId} query: POST ${url}`);
+  logger.debug(`${queryId} query: POST ${url}`);
 
   return axios({
     method: "post",
@@ -52,7 +52,7 @@ function handleResponse<T>(response: AxiosResponse<T>, queryId: string): T {
   const message = Array.isArray(data)
     ? `${queryId} response: ${reason} ${status} (${data.length} elements)`
     : `${queryId} response: ${reason} ${status}`;
-  log.debug(message);
+  logger.debug(message);
   return response.data;
 }
 

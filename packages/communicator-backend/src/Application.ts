@@ -4,14 +4,14 @@ import { Server as HttpServer } from "http";
 import { promisify } from "util";
 import router from "./router/Router";
 import websocketRouter from "./router/WebsocketRouter";
+import {
+  configuration,
+  configurationPath,
+} from "./bean/configuration/Configuration";
 import yargs from "yargs";
 import { getArguments, renderArgs } from "./function/MiscFunctions";
-import {
-  getConfigurationPath,
-  getWorkingDirectory,
-  resolvePath,
-} from "./function/SystemFunctions";
-import { getDirectoryContents, initClient } from "./bean/nextcloud/Nextcloud";
+import { getWorkingDirectory, resolvePath } from "./function/SystemFunctions";
+// import { getDirectoryContents, initClient } from "./bean/nextcloud/Nextcloud";
 
 const cors = require("@koa/cors");
 const bodyParser = require("koa-bodyparser");
@@ -59,7 +59,11 @@ async function createKoa(configuration: any): Promise<HttpServer> {
     const resolvedDirectory = resolvePath(directory);
     koa.use(serve(resolvedDirectory));
 
-    logger.info("Serving frontend at %s %s", serverAddress, resolvedDirectory);
+    logger.info(
+      "Serving frontend (%s) at %s",
+      resolvedDirectory,
+      serverAddress,
+    );
   }
 
   logger.info("Serving backend at %s/api", serverAddress);
@@ -77,11 +81,13 @@ class Application {
       initLogger("server", this.args["loglevel"]);
       logger.info("Started with arguments: %s", renderArgs(process.argv));
 
-      logger.info("Working diretory: %s", getWorkingDirectory());
+      logger.info("Working directory: %s", getWorkingDirectory());
 
-      const configurationPath = getConfigurationPath();
       logger.info("Configuration file: %s", configurationPath);
-      const configuration = require(configurationPath);
+      logger.info(
+        "scanservjs base URL: %s",
+        configuration?.scanservjs?.baseUrl,
+      );
 
       // logger.info("Initializing WebDAV client");
       // initClient(

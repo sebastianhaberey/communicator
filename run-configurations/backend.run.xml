@@ -5,7 +5,7 @@
     <scripts>
       <script value="start" />
     </scripts>
-    <arguments value="--loglevel info" />
+    <arguments value="--loglevel debug" />
     <node-interpreter value="project" />
     <envs />
     <method v="2" />

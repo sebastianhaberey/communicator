@@ -24,7 +24,7 @@
             class="h__button_medium cyan darken-3"
             tile
             depressed
-            @click="scan()"
+            @click="scanFirstPage()"
           >
             SCANNEN
           </v-btn>
@@ -44,7 +44,7 @@
             class="h__button_medium cyan darken-3"
             tile
             depressed
-            @click="scan()"
+            @click="scanNextPage()"
           >
             NÄCHSTE<br />
             SEITE<br />
@@ -54,7 +54,7 @@
             class="h__button_medium lime darken-3"
             tile
             depressed
-            @click="send()"
+            @click="wrapUpAndSend()"
           >
             DOKUMENT<br />
             SENDEN<br />
@@ -89,8 +89,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { HashLoader } from "@saeris/vue-spinners";
-import { get } from "@/logic/service/QueryService";
-import { COMMUNICATOR_BACKEND_SHUTDOWN_URL } from "@/logic/function/UrlFunctions";
+import { post } from "@/logic/service/QueryService";
+import { SCAN_URL, SHUTDOWN_URL } from "@/logic/function/UrlFunctions";
 
 export enum State {
   LOADING = "LOADING",
@@ -108,27 +108,35 @@ export enum State {
 })
 export default class Home extends Vue {
   state: State = State.SPLASH;
+  page: number;
 
   start(): void {
     this.state = State.START;
   }
 
-  protected scan(): void {
+  protected async scanFirstPage(): Promise<void> {
     this.state = State.LOADING;
-    setTimeout(() => {
-      this.state = State.CONTINUE;
-    }, 5000);
+    this.page = 1;
+    await Home.scan(this.page);
+    this.state = State.CONTINUE;
+  }
+
+  protected async scanNextPage(): Promise<void> {
+    this.state = State.LOADING;
+    this.page += 1;
+    await Home.scan(this.page);
+    this.state = State.CONTINUE;
   }
 
   protected async shutdown(): Promise<void> {
-    await get<void>({ url: COMMUNICATOR_BACKEND_SHUTDOWN_URL });
+    await post<void>(SHUTDOWN_URL);
   }
 
-  protected send(): void {
+  protected async wrapUpAndSend(): Promise<void> {
     this.state = State.LOADING;
-    setTimeout(() => {
-      this.state = State.SUCCESS;
-    }, 2000);
+    await Home.wrapUpScanning();
+    // TODO trigger sending endpoint
+    this.state = State.SUCCESS;
   }
 
   protected cancel(): void {
@@ -137,6 +145,14 @@ export default class Home extends Vue {
 
   protected splash(): void {
     this.state = State.SPLASH;
+  }
+
+  private static async scan(page: number): Promise<void> {
+    await post<void>(SCAN_URL, undefined, { index: page });
+  }
+
+  private static async wrapUpScanning(): Promise<void> {
+    await post<void>(SCAN_URL, undefined, { index: -1 });
   }
 }
 </script>
