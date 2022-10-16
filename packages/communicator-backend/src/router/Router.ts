@@ -1,12 +1,12 @@
 import Koa from "koa";
 import Router from "koa-router";
-import { shutdown } from "../bean/system/System";
-import { configuration } from "../bean/configuration/Configuration";
+import { shutdown } from "../bean/System";
+import { configuration } from "../bean/Configuration";
 import { query } from "../service/QueryService";
-import { logger } from "../bean/logger/Logger";
+import { logger } from "../bean/Logger";
 import { ScanservFile } from "../entity/ScanservFile";
 import * as Stream from "stream";
-import { uploadFile } from "../bean/nextcloud/Nextcloud";
+import { uploadFile } from "../bean/Nextcloud";
 
 const SCANSERV_BASE_URL = configuration.scanservjs.baseUrl;
 const SCANSERV_SCAN_URL = SCANSERV_BASE_URL + "/scanner/scan";
@@ -16,14 +16,14 @@ const router = new Router({ prefix: "/api" });
 
 async function getAllFiles(): Promise<Array<ScanservFile>> {
   return query<Array<ScanservFile>>({
-    method: "get",
+    method: "GET",
     url: SCANSERV_FILES_URL,
   });
 }
 
 async function getFileContent(filename: string): Promise<Stream> {
   return query<Stream>({
-    method: "get",
+    method: "GET",
     url: SCANSERV_FILES_URL + "/" + encodeURI(filename),
     responseType: "stream",
   });
@@ -31,7 +31,7 @@ async function getFileContent(filename: string): Promise<Stream> {
 
 async function deleteFile(filename: string): Promise<void> {
   return query({
-    method: "delete",
+    method: "DELETE",
     url: SCANSERV_FILES_URL + "/" + encodeURI(filename),
   });
 }
@@ -48,7 +48,7 @@ router.post("/shutdown", async (ctx: Koa.Context) => {
 async function scan(request: any): Promise<void> {
   return query<void>({
     url: SCANSERV_SCAN_URL,
-    method: "post",
+    method: "POST",
     data: request,
   });
 }

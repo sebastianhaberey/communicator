@@ -180,7 +180,7 @@ export default class Home extends Vue {
 
   private static async scan(page: number): Promise<void> {
     return query<void>({
-      method: "post",
+      method: "POST",
       url: SCAN_URL,
       params: { index: page },
     });
@@ -188,18 +188,18 @@ export default class Home extends Vue {
 
   private static async finalizeScan(): Promise<void> {
     return query<void>({
-      method: "post",
+      method: "POST",
       url: SCAN_URL,
       params: { index: -1 },
     });
   }
 
   private static async send(): Promise<void> {
-    return query<void>({ method: "post", url: SEND_URL });
+    return query<void>({ method: "POST", url: SEND_URL });
   }
 
   private static triggerShutdown(): Promise<void> {
-    return query<void>({ method: "post", url: SHUTDOWN_URL });
+    return query<void>({ method: "POST", url: SHUTDOWN_URL });
   }
 
   protected protectButtons(): void {

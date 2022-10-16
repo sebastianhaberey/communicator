@@ -1,4 +1,4 @@
-import { resolvePath } from "../../function/SystemFunctions";
+import { resolvePath } from "../function/MiscFunctions";
 
 const CONFIGURATION_PATH = `communicator.config`;
 

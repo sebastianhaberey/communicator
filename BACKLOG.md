@@ -2,14 +2,15 @@
 
 ## Aktueller Sprint
 
-* Screensaver ausschalten
-
 ## Backlog
 
-* Robustheit verbessern, Fehlerfälle simulieren
+* Fehler komfortabler behandeln
+* Feature: nächster Termin
+* CalDAV - Kalender auslesen
 
 ## Done
 
+* Screensaver ausschalten
 * Doppeltes Drücken verhindern
 * Datei hochladen zu Nextcloud
 * scanserv an die UI anbinden
@@ -23,4 +24,3 @@
 * Raspberry PI Kiosk-Modus
 
 ## V0.0.0
-

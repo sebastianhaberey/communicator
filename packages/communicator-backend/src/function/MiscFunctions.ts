@@ -1,4 +1,5 @@
 import { Argv } from "yargs";
+import path from "path";
 
 // Functions that fit nowhere else - find a better place if possible
 
@@ -45,4 +46,12 @@ export function renderArgs(args: string[]): string {
   const argsCopy = Array.from(args);
   argsCopy.splice(0, 2);
   return argsCopy.join(" ");
+}
+
+export function resolvePath(filePath: string): string {
+  return path.resolve(process.cwd(), filePath);
+}
+
+export function getWorkingDirectory(): string {
+  return resolvePath(".");
 }

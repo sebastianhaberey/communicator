@@ -9,7 +9,7 @@ const LOGFILE_FORMAT = winston.format.printf(
 
 export let logger: winston.Logger;
 
-const timezoned = () => {
+const timezoned = (): string => {
   return format(new Date(), "yyyy-MM-dd HH:mm:ss.SSS (z)");
 };
 
@@ -45,20 +45,6 @@ export function initLogger(filename: string, level = "info"): void {
       ),
     }),
   );
-}
-
-export function initLoggerForTest(): void {
-  logger = winston.createLogger({
-    level: "debug",
-    transports: [
-      new winston.transports.Console({
-        format: winston.format.combine(
-          winston.format.splat(),
-          winston.format.simple(),
-        ),
-      }),
-    ],
-  });
 }
 
 export function destroyLogger(): void {

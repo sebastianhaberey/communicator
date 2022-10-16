@@ -1,4 +1,4 @@
-import { logger } from "../logger/Logger";
+import { logger } from "./Logger";
 
 const { spawn } = require("child_process");
 

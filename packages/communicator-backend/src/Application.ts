@@ -1,23 +1,21 @@
-import { destroyLogger, initLogger, logger } from "./bean/logger/Logger";
+import { destroyLogger, initLogger, logger } from "./bean/Logger";
 import Koa from "koa";
 import { Server as HttpServer } from "http";
 import { promisify } from "util";
 import router from "./router/Router";
-import websocketRouter from "./router/WebsocketRouter";
-import {
-  configuration,
-  configurationPath,
-} from "./bean/configuration/Configuration";
+import { configuration, configurationPath } from "./bean/Configuration";
 import yargs from "yargs";
-import { getArguments, renderArgs } from "./function/MiscFunctions";
-import { getWorkingDirectory, resolvePath } from "./function/SystemFunctions";
-import { initClient } from "./bean/nextcloud/Nextcloud";
+import {
+  getArguments,
+  getWorkingDirectory,
+  renderArgs,
+  resolvePath,
+} from "./function/MiscFunctions";
+import { initClient } from "./bean/Nextcloud";
 
 const cors = require("@koa/cors");
-const bodyParser = require("koa-bodyparser");
 const serve = require("koa-static");
 const { historyApiFallback } = require("koa2-connect-history-api-fallback");
-const websockify = require("koa-websocket");
 
 enum ExitCode {
   SUCCESS = 0,
@@ -44,13 +42,11 @@ async function createKoa(configuration: any): Promise<HttpServer> {
 
   const serverAddress = `http://localhost:${port}`;
 
-  const koa = websockify(new Koa());
+  const koa = new Koa();
   koa.use(cors());
-  koa.use(bodyParser());
   koa.silent = true;
   koa.on("error", errorHandler);
   koa.use(router.routes());
-  koa.ws.use(websocketRouter.routes());
 
   const directory = configuration.staticDirectory;
   if (directory) {
