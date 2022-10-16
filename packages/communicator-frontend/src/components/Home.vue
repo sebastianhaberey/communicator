@@ -97,7 +97,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { HashLoader } from "@saeris/vue-spinners";
-import { query } from "@/logic/service/QueryService";
+import { query } from "@/logic/QueryService";
 
 const BACKEND_URL = "/api";
 const SHUTDOWN_URL = BACKEND_URL + "/shutdown";

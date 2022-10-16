@@ -10,8 +10,7 @@
       ]
     },
     "types": [
-      "webpack-env",
-      "jest"
+      "webpack-env"
     ],
     "lib": [
       "esnext",
@@ -22,7 +21,6 @@
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.vue",
-    "spec/**/*.ts"
+    "src/**/*.vue"
   ]
 }
