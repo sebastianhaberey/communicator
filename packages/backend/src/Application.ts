@@ -33,7 +33,7 @@ async function errorHandler(error: Error): Promise<void> {
 }
 
 async function createKoa(configuration: any): Promise<HttpServer> {
-  logger.info("Starting server");
+  logger.info("Starting Koa server");
 
   const port = configuration.port;
   if (!port) {
@@ -98,7 +98,7 @@ class Application {
       logger.error(error.stack);
       return ExitCode.ERROR;
     } finally {
-      logger.info("Stopping server");
+      logger.info("Stopping Koa server");
       if (this.server) {
         await promisify(this.server.close).bind(this.server)();
       }

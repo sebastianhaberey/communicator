@@ -3,10 +3,10 @@
   "include": [],
   "references": [
     {
-      "path": "packages/communicator-backend"
+      "path": "packages/backend"
     },
     {
-      "path": "packages/communicator-frontend"
+      "path": "packages/frontend"
     }
   ]
 }

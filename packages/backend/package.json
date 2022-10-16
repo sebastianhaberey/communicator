@@ -1,9 +1,9 @@
 {
-  "name": "communicator-backend",
+  "name": "backend",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "cd ../../deploy-development && ts-node ../packages/communicator-backend/src/Application.ts",
+    "start": "cd ../../deploy-development && ts-node ../packages/backend/src/Application.ts",
     "build": "rimraf dist;tsc --build"
   },
   "dependencies": {
