@@ -1,8 +1,6 @@
 import { Argv } from "yargs";
 import path from "path";
 
-// Functions that fit nowhere else - find a better place if possible
-
 export function getArguments(argv: Argv): any {
   return argv
     .parserConfiguration({

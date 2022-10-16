@@ -4,11 +4,13 @@
 
 ## Backlog
 
-* Fehler komfortabler behandeln
-* Feature: nächster Termin
+* Komfortablere Fehlerbehandlung
 * CalDAV - Kalender auslesen
+* Feature: nächster CalDAV Termin
 
 ## Done
+
+## V1.0.0
 
 * Screensaver ausschalten
 * Doppeltes Drücken verhindern
@@ -22,5 +24,3 @@
 * Deploy zum Raspberry PI
 * Raspberry PI OS auf Lite umstellen
 * Raspberry PI Kiosk-Modus
-
-## V0.0.0

@@ -4,7 +4,7 @@ import { getReasonPhrase } from "http-status-codes";
 import log from "loglevel";
 
 function shortenUuid(id: string): string {
-  return id.substr(0, 4);
+  return id.substring(0, 4);
 }
 
 export class QueryError extends Error {
