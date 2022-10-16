@@ -10,7 +10,8 @@
       ]
     },
     "types": [
-      "webpack-env"
+      "webpack-env",
+      "vuetify"
     ],
     "lib": [
       "esnext",
