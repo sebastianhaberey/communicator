@@ -9,6 +9,7 @@ module.exports = {
     files: {
       url: "https://nextcloud.foo.com/remote.php/dav/files/username",
     },
+    uploadDirectory: "",
   },
   scanservjs: {
     baseUrl: "http://localhost:8080",

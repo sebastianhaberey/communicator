@@ -10,6 +10,8 @@
 
 ## Done
 
+* Konfigurierbares Upload-Verzeichnis
+
 ## V1.0.0
 
 * Screensaver ausschalten

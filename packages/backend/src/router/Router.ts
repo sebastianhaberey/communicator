@@ -11,6 +11,7 @@ import { uploadFile } from "../bean/Nextcloud";
 const SCANSERV_BASE_URL = configuration.scanservjs.baseUrl;
 const SCANSERV_SCAN_URL = SCANSERV_BASE_URL + "/scanner/scan";
 const SCANSERV_FILES_URL = SCANSERV_BASE_URL + "/files";
+const UPLOAD_DIRECTORY = configuration.webdav.uploadDirectory;
 
 const router = new Router({ prefix: "/api" });
 
@@ -90,7 +91,7 @@ router.post("/send", async (ctx: Koa.Context) => {
     logger.info('Sending file to cloud: "%s" (%s)', filename, file.sizeString);
 
     const stream = await getFileContent(filename);
-    await uploadFile(filename, stream);
+    await uploadFile(UPLOAD_DIRECTORY + "/" + filename, stream);
     await deleteFile(filename);
   }
 
